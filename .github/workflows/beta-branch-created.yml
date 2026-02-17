@@ -1,0 +1,11 @@
+on:
+  push:
+    branches:
+      - 'beta/**'
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hello
+        run: echo "hello"
