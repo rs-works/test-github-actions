@@ -2,6 +2,7 @@ on:
   pull_request:
     paths:
       - 'files/**'
+      - '!files/local.txt'
 
 jobs:
   hello:
