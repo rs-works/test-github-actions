@@ -3,7 +3,7 @@ on:
 
 jobs:
   hello:
-    if: startsWith(github.head_ref, 'beta/')
+    if: startsWith(github.head_ref, 'beta/') && !startsWith(github.head_ref, 'beta/daily_')
     runs-on: ubuntu-latest
     steps:
       - name: Hello
