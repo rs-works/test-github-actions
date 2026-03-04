@@ -1,0 +1,47 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - 'ci/approach2/**'
+
+jobs:
+  pre:
+    runs-on: ubuntu-slim
+    outputs:
+      proto-changed: ${{ steps.check.outputs.proto-changed }}
+      java-app-changed: ${{ steps.check.outputs.java-app-changed }}
+    steps:
+      - run: sleep 10
+      - id: check
+        run: |
+          PROTO=$(gh api repos/${{ github.repository }}/compare/main...${{ github.sha }} \
+            --jq '[.files[].filename | select(startswith("files/service-a/"))] | length > 0')
+          JAVA=$(gh api repos/${{ github.repository }}/compare/main...${{ github.sha }} \
+            --jq '[.files[].filename | select(startswith("files/service-b/"))] | length > 0')
+          if [ "$JAVA" = "true" ]; then PROTO="true"; fi
+          echo "proto-changed=$PROTO" >> $GITHUB_OUTPUT
+          echo "java-app-changed=$JAVA" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  proto:
+    needs: [pre]
+    if: needs.pre.outputs.proto-changed == 'true'
+    runs-on: ubuntu-slim
+    steps:
+      - run: sleep 10
+
+  java-app:
+    needs: [proto, pre]
+    if: needs.pre.outputs.java-app-changed == 'true'
+    runs-on: ubuntu-slim
+    steps:
+      - run: sleep 10
+
+  post:
+    needs: [pre, proto, java-app]
+    if: always()
+    runs-on: ubuntu-slim
+    steps:
+      - run: sleep 10

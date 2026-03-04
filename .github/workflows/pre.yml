@@ -2,6 +2,8 @@ name: pre
 
 on:
   push:
+    branches-ignore:
+      - 'ci/approach2/**'
 
 jobs:
   pre:
