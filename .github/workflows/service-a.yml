@@ -14,7 +14,7 @@ jobs:
     steps:
       - id: check
         run: |
-          CHANGED=$(gh api repos/${{ github.repository }}/commits/${{ github.event.workflow_run.head_sha }} \
+          CHANGED=$(gh api repos/${{ github.repository }}/compare/main...${{ github.event.workflow_run.head_sha }} \
             --jq '[.files[].filename | select(startswith("files/service-a/"))] | length > 0')
           echo "changed=$CHANGED" >> $GITHUB_OUTPUT
         env:
