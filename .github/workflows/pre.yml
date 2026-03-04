@@ -4,6 +4,7 @@ on:
   push:
     branches-ignore:
       - 'ci/approach2/**'
+      - 'ci/approach3/**'
 
 jobs:
   pre:

@@ -1,0 +1,43 @@
+name: orchestrator
+
+on:
+  push:
+    branches:
+      - 'ci/approach3/**'
+
+jobs:
+  pre:
+    runs-on: ubuntu-slim
+    outputs:
+      proto-changed: ${{ steps.check.outputs.proto-changed }}
+      java-app-changed: ${{ steps.check.outputs.java-app-changed }}
+    steps:
+      - run: sleep 10
+      - id: check
+        run: |
+          PROTO=$(gh api repos/${{ github.repository }}/compare/main...${{ github.sha }} \
+            --jq '[.files[].filename | select(startswith("files/service-a/"))] | length > 0')
+          JAVA=$(gh api repos/${{ github.repository }}/compare/main...${{ github.sha }} \
+            --jq '[.files[].filename | select(startswith("files/service-b/"))] | length > 0')
+          if [ "$JAVA" = "true" ]; then PROTO="true"; fi
+          echo "proto-changed=$PROTO" >> $GITHUB_OUTPUT
+          echo "java-app-changed=$JAVA" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  proto:
+    needs: [pre]
+    if: needs.pre.outputs.proto-changed == 'true'
+    uses: ./.github/workflows/callable-proto.yml
+
+  java-app:
+    needs: [proto, pre]
+    if: needs.pre.outputs.java-app-changed == 'true'
+    uses: ./.github/workflows/callable-java-app.yml
+
+  post:
+    needs: [pre, proto, java-app]
+    if: always()
+    runs-on: ubuntu-slim
+    steps:
+      - run: sleep 10

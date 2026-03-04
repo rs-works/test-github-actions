@@ -1,0 +1,10 @@
+name: callable-proto
+
+on:
+  workflow_call:
+
+jobs:
+  proto:
+    runs-on: ubuntu-slim
+    steps:
+      - run: sleep 10

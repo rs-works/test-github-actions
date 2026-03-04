@@ -1,0 +1,10 @@
+name: callable-java-app
+
+on:
+  workflow_call:
+
+jobs:
+  java-app:
+    runs-on: ubuntu-slim
+    steps:
+      - run: sleep 10
