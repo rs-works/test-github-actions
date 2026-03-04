@@ -1,3 +1,5 @@
+name: service-b
+
 on:
   push:
     paths:
@@ -5,6 +7,6 @@ on:
 
 jobs:
   service-b:
-    runs-on: ubuntu-slime
+    runs-on: ubuntu-slim
     steps:
       - run: sleep 10
