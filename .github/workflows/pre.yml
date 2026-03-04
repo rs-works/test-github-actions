@@ -1,0 +1,8 @@
+on:
+  push:
+
+jobs:
+  pre:
+    runs-on: ubuntu-slime
+    steps:
+      - run: sleep 10

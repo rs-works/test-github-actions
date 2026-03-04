@@ -1,0 +1,10 @@
+on:
+  push:
+    paths:
+      - 'files/service-a/**'
+
+jobs:
+  service-a:
+    runs-on: ubuntu-slime
+    steps:
+      - run: sleep 10
