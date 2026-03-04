@@ -1,7 +1,9 @@
 name: post
 
 on:
-  push:
+  workflow_run:
+    workflows: ["service-b"]
+    types: [completed]
 
 jobs:
   post:
