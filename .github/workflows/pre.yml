@@ -1,0 +1,10 @@
+name: pre
+
+on:
+  push:
+
+jobs:
+  pre:
+    runs-on: ubuntu-slim
+    steps:
+      - run: sleep 10

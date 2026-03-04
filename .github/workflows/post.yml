@@ -1,0 +1,12 @@
+name: post
+
+on:
+  workflow_run:
+    workflows: ["service-b"]
+    types: [completed]
+
+jobs:
+  post:
+    runs-on: ubuntu-slim
+    steps:
+      - run: sleep 10
