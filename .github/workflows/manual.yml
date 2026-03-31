@@ -22,11 +22,11 @@ on:
         required: false
         default: false
         type: boolean
-      number_input:
-        description: 'number型 (数値)'
-        required: false
-        default: '42'
-        type: number
+      # number_input:
+      #   description: 'number型 (数値)'
+      #   required: false
+      #   default: '42'
+      #   type: number
       # environment_input:
       #   description: 'environment型 (GitHub環境)'
       #   required: false
