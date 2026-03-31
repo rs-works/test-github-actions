@@ -1,0 +1,45 @@
+name: Manual Dispatch
+
+on:
+  workflow_dispatch:
+    inputs:
+      string_input:
+        description: 'string型 (テキスト入力)'
+        required: false
+        default: 'hello'
+        type: string
+      choice_input:
+        description: 'choice型 (選択肢)'
+        required: false
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - stg
+          - prod
+      boolean_input:
+        description: 'boolean型 (チェックボックス)'
+        required: false
+        default: false
+        type: boolean
+      number_input:
+        description: 'number型 (数値)'
+        required: false
+        default: '42'
+        type: number
+      environment_input:
+        description: 'environment型 (GitHub環境)'
+        required: false
+        type: environment
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print inputs
+        run: |
+          echo "string:      ${{ inputs.string_input }}"
+          echo "choice:      ${{ inputs.choice_input }}"
+          echo "boolean:     ${{ inputs.boolean_input }}"
+          echo "number:      ${{ inputs.number_input }}"
+          echo "environment: ${{ inputs.environment_input }}"
