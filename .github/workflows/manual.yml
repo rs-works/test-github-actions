@@ -43,3 +43,4 @@ jobs:
           echo "boolean:     ${{ inputs.boolean_input }}"
           echo "number:      ${{ inputs.number_input }}"
           echo "environment: ${{ inputs.environment_input }}"
+          echo "sha:         ${{ ${{ github.sha }} }}"
