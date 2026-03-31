@@ -27,10 +27,10 @@ on:
         required: false
         default: '42'
         type: number
-      environment_input:
-        description: 'environment型 (GitHub環境)'
-        required: false
-        type: environment
+      # environment_input:
+      #   description: 'environment型 (GitHub環境)'
+      #   required: false
+      #   type: environment
 
 jobs:
   hello:
@@ -44,3 +44,4 @@ jobs:
           echo "number:      ${{ inputs.number_input }}"
           echo "environment: ${{ inputs.environment_input }}"
           echo "sha:         ${{ github.sha }}"
+          echo "event_name:  ${{ github.event_name }}"
